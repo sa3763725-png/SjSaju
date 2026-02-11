@@ -1,0 +1,237 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SJ SAJU | Infinite Speedster</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;700&display=swap');
+
+        :root {
+            /* Dynamic Variables controlled by JS */
+            --primary-hue: 0;
+            --primary: hsl(var(--primary-hue), 100%, 50%);
+            --secondary: hsl(calc(var(--primary-hue) + 40), 100%, 50%);
+            --bg: #030303;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 1s ease;
+        }
+
+        /* Smooth color transition for all themed elements */
+        .dynamic-color { color: var(--primary); transition: color 0.1s linear; }
+        .dynamic-bg { background-color: var(--primary); transition: background-color 0.1s linear; }
+        .dynamic-border { border-color: var(--primary); transition: border-color 0.1s linear; }
+
+        .hero-name {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(3rem, 12vw, 9rem);
+            background: linear-gradient(90deg, var(--primary), var(--secondary), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: moveGradient 4s linear infinite;
+        }
+
+        @keyframes moveGradient { to { background-position: 200% center; } }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
+            border-top-width: 5px;
+        }
+
+        .quote-container {
+            position: relative;
+            padding: 2rem;
+            border-left: 2px solid var(--primary);
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+        }
+
+        #warp-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .glow-point {
+            position: absolute;
+            width: 150px; height: 150px;
+            background: var(--primary);
+            filter: blur(120px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <canvas id="warp-canvas"></canvas>
+    <div class="glow-point top-1/4 left-1/4"></div>
+
+    <nav class="fixed top-0 w-full z-50 px-10 py-6 flex justify-between items-center bg-black/40 backdrop-blur-xl border-b border-white/5">
+        <div class="text-2xl font-black italic tracking-tighter">
+            <span class="dynamic-color">SJ</span><span>SAJU</span>
+        </div>
+        <div class="flex items-center space-x-8 text-[10px] font-bold tracking-[0.3em] uppercase">
+            <a href="#archive" class="hover:dynamic-color transition-all">Archive</a>
+            <a href="https://www.chess.com/member/Sj_saju" target="_blank" class="hover:dynamic-color"><i class="fas fa-chess-knight text-lg"></i></a>
+            <button onclick="directGmail()" class="dynamic-border border px-4 py-2 hover:dynamic-bg hover:text-black transition-all">Connect</button>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+        <div class="font-mono dynamic-color text-xs mb-6 tracking-[1.5em] uppercase animate-pulse">Neural Sync: Always Online</div>
+        
+        <h1 class="hero-name italic font-bold">SJ SAJU</h1>
+        
+        <div class="mt-12 max-w-3xl quote-container">
+            <p class="text-xl md:text-3xl font-light italic leading-relaxed text-slate-300">
+                "The Game Ends when the <span class="dynamic-color font-bold">King falls</span>, not when a pawn takes your Queen."
+            </p>
+        </div>
+
+        <div class="mt-16 flex flex-wrap justify-center gap-6">
+            <button onclick="document.getElementById('archive').scrollIntoView()" class="dynamic-bg text-black px-10 py-4 font-black italic uppercase tracking-widest hover:scale-105 transition-transform">Access Logs</button>
+            <a href="https://www.chess.com/member/Sj_saju" target="_blank" class="px-10 py-4 border border-white/20 hover:border-[var(--primary)] transition-all font-black italic uppercase tracking-widest">Challenge Me</a>
+        </div>
+    </section>
+
+    <section id="archive" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-10 cursor-pointer" onclick="openModal('songs')">
+                <i class="fas fa-wave-square text-3xl dynamic-color mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">AUDIO ARCHIVE</h3>
+                <p class="text-sm text-slate-500 font-medium">Paradox, Talha Anjum, and High-Speed Frequencies.</p>
+            </div>
+            
+            <div class="glass-card p-10 cursor-pointer" onclick="openModal('movies')">
+                <i class="fas fa-bolt text-3xl dynamic-color mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">VISUAL CORE</h3>
+                <p class="text-sm text-slate-500 font-medium">The Flash, DQ Salman, and South Action Masterpieces.</p>
+            </div>
+
+            <div class="glass-card p-10 cursor-pointer" onclick="directGmail()">
+                <i class="fas fa-satellite text-3xl dynamic-color mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">DIRECT LINK</h3>
+                <p class="text-sm text-slate-500 font-medium">Encrypted communication channel to SJ SAJU HQ.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="text-[10px] tracking-[2em] opacity-30 mb-4">SJ SAJU // PERPETUAL MOTION</p>
+        <p class="text-sm dynamic-color font-mono">Current Spectrum: <span id="hue-val">0</span>°</p>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 z-[100] p-6 hidden flex items-center justify-center bg-black/95 backdrop-blur-2xl">
+        <div class="bg-[#050505] border dynamic-border w-full max-w-5xl max-h-[85vh] flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+            <div class="p-8 border-b border-white/10 flex justify-between items-center">
+                <h2 id="modal-title" class="text-3xl font-black italic dynamic-color uppercase">Data Vault</h2>
+                <button onclick="closeModal()" class="text-4xl hover:text-red-500">&times;</button>
+            </div>
+            <div id="modal-content" class="flex-1 overflow-y-auto p-8 grid md:grid-cols-2 gap-4"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- INFINITE DYNAMIC THEME ENGINE ---
+        let hue = 0;
+        function updateTheme() {
+            hue = (hue + 0.5) % 360; // Changes speed: lower is slower/smoother
+            document.documentElement.style.setProperty('--primary-hue', hue);
+            document.getElementById('hue-val').innerText = Math.floor(hue);
+            requestAnimationFrame(updateTheme);
+        }
+
+        // --- BACKGROUND WARP ---
+        const canvas = document.getElementById('warp-canvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 400; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    z: Math.random() * canvas.width
+                });
+            }
+        }
+
+        function drawWarp() {
+            ctx.fillStyle = "rgba(3, 3, 3, 0.2)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            
+            const currentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+
+            stars.forEach(s => {
+                s.z -= 8;
+                if (s.z <= 0) s.z = canvas.width;
+                const x = (s.x - centerX) * (canvas.width / s.z) + centerX;
+                const y = (s.y - centerY) * (canvas.width / s.z) + centerY;
+                const radius = (1 - s.z / canvas.width) * 3;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = s.z < 500 ? currentPrimary : "white";
+                ctx.fill();
+            });
+            requestAnimationFrame(drawWarp);
+        }
+
+        // --- DATA & MODALS ---
+        const songs = ["The last ride", "295", "Moonlight (25 Jan 2022)", "Hope - XXXTentacion", "Sad", "Waalian", "Jadugar", "Kahaab", "Faded", "Changes", "Wo ladki nhi Zindagi tei meri", "Kahani suno 2", "Kaisi teri khud gahr ji", "Rang te noor tha (Minecraft)", "Falak tak chal sath mere", "Shauq", "Everybody dies Nightmare", "Excuse", "Tu ta hua saaz hu me khud se hai", "Lal sahari lofi mix", "Heer ranjha", "Hasi ban gaye", "Rihayiiii (Paradox)", "Kya chazee hu thum", "Teri zikar", "Roi na jo yaad meri ay be", "Nikk", "Cold hours", "Qsmat", "Teri sorat na ho jisme o sisha to denge hum", "Bewafa", "Ghalat Fehmi", "Shubh", "Kuch bhi ho jay", "Ranjha", "Jannat", "Allah waariyan", "Tere sang yara", "Agar tum mil jau (GTA V)", "Mohbat se nhi waqif", "Kya hua tera wada", "Marzi nhi chalti thjse", "Jeena jeena", "Kya mujhe pyar", "Dil diya he", "Agar tum mil jao", "Love nwantiti", "Lo safar", "Tujhe me rab dikta he", "Aram ati he didar se tere", "Main ja rahoon (Rahat Fateh)", "No love", "Tujhe Hasil karunga", "Tor valobasa ure giyeche", "Tamak pata", "Humko Tere Bina jina Tho sikha", "Darshan Raval", "Bnjaara", "Yeh jism hai tho kiya", "Paradox", "Main dhonde ne ko zamina mai jota nik la", "Aur - Tu Hai kahan", "One Love", "Talha Anjum", "SHIKAYAT", "Mehbooba", "Main ho chand", "Akull - Yaad na ay", "Kaamil", "Mi Amor"];
+        const movies = ["Notebook", "Sita Ramam", "Premam", "100 Days of Love", "CHARLIE", "Charlie 777", "Pyar ka Toffan (DQ)", "Radhe Shyam", "Shershaah", "Maha Samudram", "World Famous Lover", "Dear Comrade", "Majli", "Yeh hai Zindagi", "Geetha Govindam", "Ustad Hotel", "Aditya Varma", "A Aa", "A Aa 2", "Vikramadithyan", "Kali", "Ek Dhansu Love Story", "Saaho (Prabhas)", "Major", "Hacked", "Salar", "Leo", "Kishkindha Kaandam", "Lucifer", "Karwan", "Manam", "Vaazha"];
+
+        function openModal(cat) {
+            const list = cat === 'songs' ? songs : movies;
+            const content = document.getElementById('modal-content');
+            content.innerHTML = "";
+            document.getElementById('modal-title').innerText = cat.replace('songs', 'Audio Records').replace('movies', 'Visual Archive');
+            list.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "p-5 border border-white/5 bg-white/5 flex justify-between items-center group hover:bg-white/10 transition-all";
+                div.innerHTML = `<span class="text-xs font-black tracking-widest uppercase">${item}</span> <i class="fab fa-youtube dynamic-color group-hover:scale-125 transition-transform"></i>`;
+                content.appendChild(div);
+            });
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+        function directGmail() { window.open("https://mail.google.com/mail/?view=cm&fs=1&to=tslsaju15@gmail.com", '_blank'); }
+
+        window.onload = () => {
+            initCanvas();
+            drawWarp();
+            updateTheme();
+            window.addEventListener('resize', initCanvas);
+        };
+    </script>
+</body>
+</html>
